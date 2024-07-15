@@ -82,13 +82,13 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "temp_C": {
-                    "type": "number"
+                    "type": "string"
                 },
                 "temp_F": {
-                    "type": "number"
+                    "type": "string"
                 },
                 "temp_K": {
-                    "type": "number"
+                    "type": "string"
                 }
             }
         }

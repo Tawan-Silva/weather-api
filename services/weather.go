@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"zip_temperature/configs"
 	"zip_temperature/models"
@@ -31,8 +32,8 @@ func FetchWeather(city string) (models.WeatherResponse, error) {
 	tempK := utils.CelsiusToKelvin(tempC)
 
 	return models.WeatherResponse{
-		TemperatureC: tempC,
-		TemperatureF: tempF,
-		TemperatureK: tempK,
+		TemperatureC: fmt.Sprintf("%.2f", tempC),
+		TemperatureF: fmt.Sprintf("%.2f", tempF),
+		TemperatureK: fmt.Sprintf("%.2f", tempK),
 	}, nil
 }

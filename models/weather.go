@@ -1,7 +1,7 @@
 package models
 
 type WeatherResponse struct {
-	TemperatureC float64 `json:"temp_C"`
-	TemperatureF float64 `json:"temp_F"`
-	TemperatureK float64 `json:"temp_K"`
+	TemperatureC string `json:"temp_C"`
+	TemperatureF string `json:"temp_F"`
+	TemperatureK string `json:"temp_K"`
 }

@@ -4,8 +4,11 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/pkg/browser"
 	httpSwagger "github.com/swaggo/http-swagger"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+	"strings"
 	_ "zip_temperature/docs" // Importa os documentos gerados pelo swag
 	"zip_temperature/handlers"
 )
@@ -30,7 +33,18 @@ func Start() {
 }
 
 func GetSwaggerFile(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./docs/swagger.json")
+	data, err := ioutil.ReadFile("./docs/swagger.json")
+	if err != nil {
+		log.Printf("Failed to read Swagger JSON file: %v", err)
+		http.Error(w, "Failed to read Swagger JSON file", http.StatusInternalServerError)
+		return
+	}
+
+	host := os.Getenv("HOST")
+
+	modifiedData := strings.ReplaceAll(string(data), "localhost:8080", host)
+
+	w.Write([]byte(modifiedData))
 }
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {

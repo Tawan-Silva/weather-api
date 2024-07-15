@@ -8,11 +8,11 @@ definitions:
   models.WeatherResponse:
     properties:
       temp_C:
-        type: number
+        type: string
       temp_F:
-        type: number
+        type: string
       temp_K:
-        type: number
+        type: string
     type: object
 host: localhost:8080
 info:
