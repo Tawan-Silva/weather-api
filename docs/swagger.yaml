@@ -1,0 +1,60 @@
+basePath: /api-weather
+definitions:
+  handlers.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.WeatherResponse:
+    properties:
+      temp_C:
+        type: number
+      temp_F:
+        type: number
+      temp_K:
+        type: number
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: tawan.tls43@gmail.com
+    name: Tawan Silva
+    url: https://www.linkedin.com/in/tawan-silva-684b581b7/
+  description: This is a simple weather API
+  license:
+    name: Weather License
+    url: http://www.weather.com.br
+  termsOfService: http://swagger.io/terms/
+  title: Weather API
+  version: "1.0"
+paths:
+  /get:
+    get:
+      consumes:
+      - application/json
+      description: Get weather from zipcode
+      parameters:
+      - description: Zipcode
+        in: query
+        name: zipcode
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.WeatherResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Get weather from zipcode
+      tags:
+      - zipcode
+swagger: "2.0"
