@@ -31,7 +31,7 @@ func ZipCodeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	city, err := services.FetchCityFromZipCode(zipcode)
+	lat, lon, err := services.FetchLatLonFromZipCode(zipcode)
 	if err != nil {
 		responseError := ErrorResponse{Message: "can not find zipcode"}
 		w.WriteHeader(http.StatusNotFound)
@@ -39,7 +39,7 @@ func ZipCodeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	weather, err := services.FetchWeather(city)
+	weather, err := services.FetchWeather(lat, lon)
 	if err != nil {
 		responseError := ErrorResponse{Message: "can not find weather"}
 		w.WriteHeader(http.StatusNotFound)

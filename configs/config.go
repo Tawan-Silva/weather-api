@@ -5,7 +5,8 @@ import (
 )
 
 type Config struct {
-	WeatherApiKey string `mapstructure:"WEATHER_API_KEY"`
+	GeoApiFyApiKey string `mapstructure:"GEOAPIFY_API_KEY"`
+	WeatherApiKey  string `mapstructure:"WEATHER_API_KEY"`
 }
 
 func LoadConfig() (Config, error) {
@@ -29,6 +30,11 @@ func LoadConfig() (Config, error) {
 	}
 
 	return config, nil
+}
+
+func GetGeoApiKey() string {
+	config, _ := LoadConfig()
+	return config.GeoApiFyApiKey
 }
 
 func GetWeatherApiKey() string {

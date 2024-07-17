@@ -9,19 +9,25 @@ import (
 	"zip_temperature/utils"
 )
 
-func FetchWeather(city string) (models.WeatherResponse, error) {
+type WeatherAPIResponse struct {
+	Location struct {
+		Name string `json:"name"`
+	} `json:"location"`
+	Current struct {
+		TempC float64 `json:"temp_c"`
+	} `json:"current"`
+}
+
+func FetchWeather(lat string, lon string) (models.WeatherResponse, error) {
 	key := configs.GetWeatherApiKey()
-	resp, err := http.Get("https://api.weatherapi.com/v1/current.json?key=" + key + "&q=" + city)
+	url := fmt.Sprintf("https://api.weatherapi.com/v1/current.json?key=%s&q=%s,%s", key, lat, lon)
+	resp, err := http.Get(url)
 	if err != nil {
 		return models.WeatherResponse{}, err
 	}
 	defer resp.Body.Close()
 
-	var data struct {
-		Current struct {
-			TempC float64 `json:"temp_c"`
-		} `json:"current"`
-	}
+	var data WeatherAPIResponse
 	err = json.NewDecoder(resp.Body).Decode(&data)
 	if err != nil {
 		return models.WeatherResponse{}, err
